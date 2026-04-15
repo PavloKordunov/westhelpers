@@ -1,0 +1,95 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Syne:wght@400..800&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Syne", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-bg: #0d0d0d;
+  --color-surface: #141414;
+  --color-border: #2a2a2a;
+  --color-text: #f0ede8;
+  --color-muted: #6b6860;
+  --color-accent: #e8622a;
+  --color-accent-dim: rgba(232, 98, 42, 0.12);
+}
+
+@layer base {
+  body {
+    @apply bg-bg text-text font-sans selection:bg-accent selection:text-white;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display font-extrabold tracking-tight;
+  }
+}
+
+@layer components {
+  .noise-overlay {
+    @apply pointer-events-none fixed inset-0 z-50 opacity-[0.03];
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3%3Ffilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/feTurbulence%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+
+  .section-padding {
+    @apply py-24 px-6 md:px-12 lg:px-24;
+  }
+
+  .glass-nav {
+    @apply sticky top-0 z-40 border-b border-transparent transition-all duration-300;
+  }
+
+  .glass-nav.scrolled {
+    @apply border-border bg-bg/80 backdrop-blur-md;
+  }
+
+  .marquee-track {
+    @apply flex whitespace-nowrap py-4;
+    animation: marquee 30s linear infinite;
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .road-line {
+    @apply absolute h-[1px] w-full bg-accent/20;
+    animation: roadMove 8s linear infinite;
+  }
+
+  @keyframes roadMove {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  .bento-card {
+    @apply relative overflow-hidden border border-border bg-surface p-8 transition-all duration-500 hover:border-accent/50;
+  }
+
+  .bento-card::before {
+    content: "";
+    @apply absolute top-0 left-0 h-[2px] w-0 bg-accent transition-all duration-500;
+  }
+
+  .bento-card:hover::before {
+    @apply w-full;
+  }
+
+  .dashed-line {
+    @apply absolute top-1/2 left-0 h-[1px] w-full border-t border-dashed border-muted/30;
+  }
+}
