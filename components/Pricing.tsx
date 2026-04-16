@@ -1,26 +1,79 @@
 "use client";
 
 import { useRef } from "react";
+import { motion } from "framer-motion";
 
 export default function Pricing() {
   const sectionRef = useRef<HTMLElement>(null);
+
+  // Варіанти для заголовка та контейнера
+  const fadeIn = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
+  } as const;
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+      },
+    },
+  } as const;
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.7, ease: [0.215, 0.61, 0.355, 1] },
+    },
+  } as const;
 
   return (
     <section
       id="Тарифи"
       ref={sectionRef}
-      className="bg-surface section-padding"
+      className="bg-surface section-padding overflow-hidden"
     >
-      <div className="mb-16 text-center">
-        <span className="font-mono text-xs uppercase tracking-[0.4em] text-accent">
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        className="mb-16 text-center"
+      >
+        <motion.span
+          variants={fadeIn}
+          className="font-mono text-xs uppercase tracking-[0.4em] text-accent block"
+        >
           Прайс-лист
-        </span>
-        <h2 className="mt-4 text-4xl md:text-6xl">Наші Тарифи</h2>
-      </div>
+        </motion.span>
+        <motion.h2
+          variants={fadeIn}
+          className="mt-4 text-4xl md:text-6xl font-display uppercase italic font-black"
+        >
+          Наші Тарифи
+        </motion.h2>
+      </motion.div>
 
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-        {/* Vehicle 1 */}
-        <div className="bento-card flex flex-col">
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-50px" }}
+        className="grid grid-cols-1 gap-8 lg:grid-cols-3"
+      >
+        {/* Картка 1: Транспорт */}
+        <motion.div
+          variants={cardVariants}
+          whileHover={{ y: -8, transition: { duration: 0.3 } }}
+          className="bento-card flex flex-col group"
+        >
           <div className="mb-6 flex items-center justify-between">
             <div className="bg-accent px-4 py-2 text-bg font-bold">
               від 750 грн/год
@@ -29,7 +82,9 @@ export default function Pricing() {
               на 2 год.
             </div>
           </div>
-          <h3 className="mb-2 text-2xl">VW Crafter (14м³)</h3>
+          <h3 className="mb-2 text-2xl font-display uppercase font-bold group-hover:text-accent transition-colors">
+            VW Crafter (14м³)
+          </h3>
           <p className="mb-6 text-sm text-muted">
             Мінімальне замовлення: 1500 грн.
           </p>
@@ -37,14 +92,12 @@ export default function Pricing() {
           <div className="mb-8 space-y-3">
             {[
               { label: "Довжина", value: "4.3 м." },
-              { label: "Висота", value: "1.9 м." },
-              { label: "Ширина", value: "1.7 м." },
               { label: "Об'єм кузова", value: "14 куб." },
               { label: "Вантажопідйомність", value: "1.5 т." },
             ].map((spec) => (
               <div
                 key={spec.label}
-                className="flex justify-between border-b border-border pb-2 text-sm"
+                className="flex justify-between border-b border-border/50 pb-2 text-sm"
               >
                 <span className="text-muted">{spec.label}:</span>
                 <span className="font-bold">{spec.value}</span>
@@ -52,120 +105,109 @@ export default function Pricing() {
             ))}
           </div>
 
-          <div className="mt-auto pt-6">
-            <h4 className="mb-4 text-xs uppercase tracking-widest text-accent">
-              Додаткова інформація
+          <div className="mt-auto pt-6 border-t border-border/30">
+            <h4 className="mb-4 text-xs uppercase tracking-widest text-accent font-bold">
+              Додатково
             </h4>
-            <ul className="space-y-2 text-xs text-muted">
-              <li className="flex justify-between">
-                <span>Подача авто:</span> <span>до 30 хв.</span>
-              </li>
-              <li className="flex justify-between">
-                <span>Область:</span> <span>від 20 грн./км.</span>
-              </li>
-              <li className="flex justify-between">
-                <span>Додаткова точка:</span> <span>100 грн.</span>
-              </li>
-              <li className="flex justify-between">
-                <span>Робота у нічний час:</span> <span>+200 грн.</span>
-              </li>
+            <ul className="space-y-2 text-xs text-muted italic">
+              <li>Подача авто: до 30 хв.</li>
+              <li>Область: від 20 грн./км.</li>
             </ul>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Vehicle 2 */}
-        <div className="bento-card flex flex-col border-accent/50 bg-accent/5">
-          <div className="mb-6 flex items-center justify-between">
-            <div className="bg-accent px-4 py-2 text-bg font-bold">
-              1250 грн/год
+        {/* Картка 2: Ваш Хелпер (Акцентна) */}
+        <motion.div
+          variants={cardVariants}
+          whileHover={{ y: -12, scale: 1.02 }}
+          className="bento-card flex flex-col border-accent/50 bg-accent/5 relative overflow-hidden group shadow-2xl shadow-accent/5"
+        >
+          {/* Світловий ефект на фоні */}
+          <div className="absolute -top-24 -right-24 h-48 w-48 bg-accent/10 blur-[60px] rounded-full group-hover:bg-accent/20 transition-colors" />
+
+          <div className="mb-6 flex items-center justify-between relative z-10">
+            <div className="bg-accent px-4 py-2 text-bg font-bold shadow-lg shadow-accent/20">
+              400 грн/год
             </div>
             <div className="border border-accent px-4 py-2 text-accent text-sm font-bold">
-              на 2 год.
+              8 год.
             </div>
           </div>
-          <h3 className="mb-2 text-2xl">Renault Master (20м³)</h3>
-          <p className="mb-6 text-sm text-muted">
-            Мінімальне замовлення: 2500 грн.
+
+          <h3 className="mb-2 text-2xl font-display uppercase font-bold text-accent">
+            Ваш Хелпер
+          </h3>
+          <p className="mb-6 text-sm text-white/90 font-bold bg-accent/10 py-1 px-3 w-fit">
+            Денне завдання: 3500 грн.
           </p>
 
-          <div className="mb-8 space-y-3">
+          <div className="mb-8 space-y-4 relative z-10">
             {[
-              { label: "Довжина", value: "4.2 м." },
-              { label: "Висота", value: "2.4 м." },
-              { label: "Ширина", value: "2.2 м." },
-              { label: "Об'єм кузова", value: "20 куб." },
-              { label: "Вантажопідйомність", value: "2 т." },
-            ].map((spec) => (
-              <div
-                key={spec.label}
-                className="flex justify-between border-b border-border pb-2 text-sm"
-              >
-                <span className="text-muted">{spec.label}:</span>
-                <span className="font-bold">{spec.value}</span>
+              "Універсальний помічник для переїздів",
+              "Розбирання, збирання та пакування",
+              "Монтажні роботи з інструментом",
+            ].map((text, i) => (
+              <div key={i} className="flex items-start gap-4">
+                <div className="mt-1 h-2 w-2 shrink-0 bg-accent rotate-45" />
+                <p className="text-sm text-muted">{text}</p>
               </div>
             ))}
           </div>
 
-          <div className="mt-auto pt-6">
-            <h4 className="mb-4 text-xs uppercase tracking-widest text-accent">
-              Додаткова інформація
+          <div className="mt-auto pt-6 border-t border-accent/20">
+            <h4 className="mb-4 text-xs uppercase tracking-widest text-accent font-bold">
+              Умови
             </h4>
             <ul className="space-y-2 text-xs text-muted">
               <li className="flex justify-between">
-                <span>Подача авто:</span> <span>до 30 хв.</span>
+                <span>Понаднормово:</span>{" "}
+                <span className="text-accent">+450 грн/год</span>
               </li>
               <li className="flex justify-between">
-                <span>Область:</span> <span>від 25 грн./км.</span>
-              </li>
-              <li className="flex justify-between">
-                <span>Додаткова точка:</span> <span>200 грн.</span>
-              </li>
-              <li className="flex justify-between">
-                <span>Робота у нічний час:</span> <span>+250 грн.</span>
+                <span>Робота вночі:</span>{" "}
+                <span className="text-accent">+200 грн.</span>
               </li>
             </ul>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Movers */}
-        <div className="bento-card flex flex-col">
+        {/* Картка 3: Вантажники */}
+        <motion.div
+          variants={cardVariants}
+          whileHover={{ y: -8 }}
+          className="bento-card flex flex-col group"
+        >
           <div className="mb-6 flex items-center justify-between">
             <div className="bg-accent px-4 py-2 text-bg font-bold">
-              від 500 грн/год
+              від 250 грн/год
             </div>
             <div className="border border-accent px-4 py-2 text-accent text-sm font-bold">
               на 2 год.
             </div>
           </div>
-          <h3 className="mb-2 text-2xl">Послуги вантажників</h3>
+          <h3 className="mb-2 text-2xl font-display uppercase font-bold group-hover:text-accent transition-colors">
+            Вантажники
+          </h3>
           <p className="mb-6 text-sm text-muted">
-            Мінімальне замовлення: 1000 грн.
+            Мін. замовлення: 500 грн/людина.
           </p>
 
           <div className="mb-8 space-y-4">
-            <div className="flex items-start gap-4">
-              <div className="mt-1 h-2 w-2 shrink-0 bg-accent" />
-              <p className="text-sm text-muted">
-                Професійне пакування та фіксація вантажу в кузові.
-              </p>
-            </div>
-            <div className="flex items-start gap-4">
-              <div className="mt-1 h-2 w-2 shrink-0 bg-accent" />
-              <p className="text-sm text-muted">
-                Збірка та розбірка корпусних меблів будь-якої складності.
-              </p>
-            </div>
-            <div className="flex items-start gap-4">
-              <div className="mt-1 h-2 w-2 shrink-0 bg-accent" />
-              <p className="text-sm text-muted">
-                Робота з крихкими та великогабаритними предметами.
-              </p>
-            </div>
+            {[
+              "Професійне пакування та фіксація",
+              "Збірка корпусних меблів",
+              "Крихкі та великогабаритні предмети",
+            ].map((text, i) => (
+              <div key={i} className="flex items-start gap-4">
+                <div className="mt-1 h-2 w-2 shrink-0 bg-accent/50" />
+                <p className="text-sm text-muted">{text}</p>
+              </div>
+            ))}
           </div>
 
-          <div className="mt-auto pt-6">
-            <h4 className="mb-4 text-xs uppercase tracking-widest text-accent">
-              Додаткова інформація
+          <div className="mt-auto pt-6 border-t border-border/30">
+            <h4 className="mb-4 text-xs uppercase tracking-widest text-accent font-bold">
+              Інфо
             </h4>
             <ul className="space-y-2 text-xs text-muted">
               <li className="flex justify-between">
@@ -174,16 +216,10 @@ export default function Pricing() {
               <li className="flex justify-between">
                 <span>Вага {">"} 80кг:</span> <span>від 10 грн./кг.</span>
               </li>
-              <li className="flex justify-between">
-                <span>Збір меблів:</span> <span>від 500 грн.</span>
-              </li>
-              <li className="flex justify-between">
-                <span>Доніс понад 20м:</span> <span>25 грн.</span>
-              </li>
             </ul>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }
