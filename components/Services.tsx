@@ -99,14 +99,14 @@ export default function Services() {
           <div className="flex flex-col gap-6 lg:col-span-4">
             {[
               {
-                icon: <Users className="h-8 w-8 text-accent" />,
-                title: "Міцні вантажники",
-                text: "Команда професіоналів для розвантаження фур чи підйому будматеріалів.",
+                icon: <Timer className="h-8 w-8 text-accent" />,
+                title: "Терміновий виїзд",
+                text: "Потрібна допомога 'на зараз'? Виїзд протягом 60 хвилин.",
               },
               {
-                icon: <Hammer className="h-8 w-8 text-accent" />,
-                title: "Монтаж та демонтаж",
-                text: "Розберемо меблі, встановимо техніку або змонтуємо конструкції.",
+                icon: <Box className="h-8 w-8 text-accent" />,
+                title: "Хелпери на івенти",
+                text: "Допомога в підготовці заходів: монтаж сцени, розстановка декору.",
               },
             ].map((item, idx) => (
               <motion.div
@@ -135,15 +135,15 @@ export default function Services() {
               span: "lg:col-span-3",
             },
             {
-              icon: <Box className="h-8 w-8 text-accent" />,
-              title: "Хелпери на івенти",
-              text: "Допомога в підготовці заходів: монтаж сцени, розстановка декору.",
+              icon: <Hammer className="h-8 w-8 text-accent" />,
+              title: "Монтаж та демонтаж",
+              text: "Розберемо меблі, встановимо техніку або змонтуємо конструкції.",
               span: "lg:col-span-4",
             },
             {
-              icon: <Timer className="h-8 w-8 text-accent" />,
-              title: "Терміновий виїзд",
-              text: "Потрібна допомога 'на зараз'? Виїзд протягом 60 хвилин.",
+              icon: <Users className="h-8 w-8 text-accent" />,
+              title: "Міцні вантажники",
+              text: "Команда професіоналів для розвантаження фур чи підйому будматеріалів.",
               span: "lg:col-span-3",
             },
           ].map((item, idx) => (

@@ -96,7 +96,7 @@ export default function Hero() {
                 }
                 className="bg-accent hover:bg-accent/90 text-white px-8 py-4 text-lg font-bold transition-all flex items-center gap-3 shadow-lg shadow-accent/20"
               >
-                Замовити хелперів <ArrowRight size={20} />
+                Зробити замовлення <ArrowRight size={20} />
               </motion.button>
 
               <motion.button
@@ -111,9 +111,9 @@ export default function Hero() {
           <div className="hidden lg:grid grid-cols-2 gap-4 translate-y-10">
             {[
               { icon: <Truck size={18} />, text: "Переїзди", delay: 5 },
-              { icon: <Box size={18} />, text: "Вантажники", delay: 5.2 },
-              { icon: <HardHat size={18} />, text: "Монтаж", delay: 5.4 },
-              { icon: <UserCheck size={18} />, text: "Хелпери", delay: 5.6 },
+              { icon: <UserCheck size={18} />, text: "Хелпери", delay: 5.2 },
+              { icon: <Box size={18} />, text: "Вантажники", delay: 5.4 },
+              { icon: <HardHat size={18} />, text: "Монтажники", delay: 5.6 },
             ].map((item, idx) => (
               <motion.div
                 key={idx}

@@ -76,23 +76,23 @@ export default function Pricing() {
         >
           <div className="mb-6 flex items-center justify-between">
             <div className="bg-accent px-4 py-2 text-bg font-bold">
-              від 750 грн/год
+              від 800 грн/год
             </div>
             <div className="border border-accent px-4 py-2 text-accent text-sm font-bold">
               на 2 год.
             </div>
           </div>
           <h3 className="mb-2 text-2xl font-display uppercase font-bold group-hover:text-accent transition-colors">
-            VW Crafter (14м³)
+            Вантажне авто
           </h3>
           <p className="mb-6 text-sm text-muted">
-            Мінімальне замовлення: 1500 грн.
+            Мінімальне замовлення: 1600 грн.
           </p>
 
           <div className="mb-8 space-y-3">
             {[
-              { label: "Довжина", value: "4.3 м." },
-              { label: "Об'єм кузова", value: "14 куб." },
+              { label: "Довжина", value: "4.2 м." },
+              { label: "Об'єм кузова", value: "від 12 куб." },
               { label: "Вантажопідйомність", value: "1.5 т." },
             ].map((spec) => (
               <div
@@ -110,8 +110,8 @@ export default function Pricing() {
               Додатково
             </h4>
             <ul className="space-y-2 text-xs text-muted italic">
-              <li>Подача авто: до 30 хв.</li>
-              <li>Область: від 20 грн./км.</li>
+              <li>Подача авто: до 60 хв.</li>
+              <li>Область: від 35 грн./км.</li>
             </ul>
           </div>
         </motion.div>
@@ -143,7 +143,7 @@ export default function Pricing() {
 
           <div className="mb-8 space-y-4 relative z-10">
             {[
-              "Універсальний помічник для переїздів",
+              "Універсальний помічник для заходів",
               "Розбирання, збирання та пакування",
               "Монтажні роботи з інструментом",
             ].map((text, i) => (
@@ -179,7 +179,7 @@ export default function Pricing() {
         >
           <div className="mb-6 flex items-center justify-between">
             <div className="bg-accent px-4 py-2 text-bg font-bold">
-              від 250 грн/год
+              від 450 грн/год
             </div>
             <div className="border border-accent px-4 py-2 text-accent text-sm font-bold">
               на 2 год.
@@ -189,13 +189,13 @@ export default function Pricing() {
             Вантажники
           </h3>
           <p className="mb-6 text-sm text-muted">
-            Мін. замовлення: 500 грн/людина.
+            Мін. замовлення: 900 грн/людина.
           </p>
 
           <div className="mb-8 space-y-4">
             {[
               "Професійне пакування та фіксація",
-              "Збірка корпусних меблів",
+              "Ввічливий та досвідчений персонал",
               "Крихкі та великогабаритні предмети",
             ].map((text, i) => (
               <div key={i} className="flex items-start gap-4">

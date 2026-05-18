@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Send, Phone, Clock } from "lucide-react";
+import toast, { Toaster } from "react-hot-toast";
+import { form } from "framer-motion/client";
 
 export default function CTA() {
   const [formData, setFormData] = useState({
@@ -11,10 +13,28 @@ export default function CTA() {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
+    // if (formData.phone.length < 9 || formData.phone.length > 13) {
+    //   toast.error("Будь ласка, введіть коректний номер телефону.");
+    //   return;
+    // }
     console.log("Дані форми:", formData);
-    alert("Запит надіслано! Ми зателефонуємо вам за 15 хвилин.");
+    const res = await fetch("/api/send-message", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        message: `Ім'я: ${formData.name}\nТелефон: ${formData.phone}\nПовідомлення: ${formData.message}`,
+      }),
+    });
+    if (res.ok) {
+      toast.success("Повідомлення успішно надіслано!");
+      setFormData({ name: "", phone: "", message: "" });
+    } else {
+      toast.error("Помилка при надсиланні повідомлення. Спробуйте ще раз.");
+      setFormData({ name: "", phone: "", message: "" });
+    }
   };
 
   const containerVariants = {
@@ -43,6 +63,7 @@ export default function CTA() {
       variants={containerVariants}
       className="mx-6 mb-24 overflow-hidden rounded-3xl border border-border bg-surface md:mx-12 lg:mx-24"
     >
+      <Toaster position="bottom-right" />
       <div className="grid grid-cols-1 lg:grid-cols-2">
         <div className="p-12 lg:p-20 flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-border relative overflow-hidden">
           <div className="absolute -bottom-20 -left-20 h-64 w-64 bg-accent/5 blur-[100px] rounded-full" />
@@ -65,12 +86,12 @@ export default function CTA() {
               {
                 icon: <Clock size={20} />,
                 label: "Швидка відповідь",
-                sub: "Передзвонимо за 15 хвилин",
+                sub: "Передзвонимо до 5 хвилин",
               },
               {
                 icon: <Phone size={20} />,
                 label: "Прямий номер",
-                sub: "+38 (0XX) XXX XX XX",
+                sub: "+38 (063) 440 80 88",
               },
             ].map((info, i) => (
               <motion.div
@@ -134,6 +155,7 @@ export default function CTA() {
                   <textarea
                     required
                     rows={1}
+                    value={formData[field.id as keyof typeof formData]}
                     className="peer w-full border-b border-border bg-transparent py-3 text-lg outline-none transition-colors focus:border-accent resize-none"
                     placeholder=" "
                     onChange={(e) =>
@@ -143,15 +165,28 @@ export default function CTA() {
                 ) : (
                   <input
                     required
+                    value={formData[field.id as keyof typeof formData]}
                     type={field.type}
-                    className="peer w-full border-b border-border bg-transparent py-3 text-lg outline-none transition-colors focus:border-accent"
+                    className="peer w-full border-b border-border bg-transparent py-3 text-lg outline-none transition-colors focus:border-accent z-100 bg-transparent"
                     placeholder=" "
                     onChange={(e) =>
                       setFormData({ ...formData, [field.id]: e.target.value })
                     }
                   />
                 )}
-                <label className="absolute left-0 top-3 text-sm uppercase tracking-widest text-muted transition-all peer-placeholder-shown:text-lg peer-placeholder-shown:text-muted peer-focus:-top-6 peer-focus:text-xs peer-focus:text-accent">
+                <label
+                  className="absolute left-0 top-3 text-sm uppercase tracking-widest text-muted transition-all select-none pointer-events-none
+  peer-placeholder-shown:text-lg 
+  peer-placeholder-shown:text-muted 
+  
+  peer-focus:-top-3 
+  peer-focus:text-xs 
+  peer-focus:text-accent
+  
+  peer-not-placeholder-shown:-top-3 
+  peer-not-placeholder-shown:text-xs 
+  peer-not-placeholder-shown:text-muted"
+                >
                   {field.label}
                 </label>
               </motion.div>

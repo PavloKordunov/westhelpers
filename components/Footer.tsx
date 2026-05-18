@@ -3,7 +3,14 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Phone, Mail, MapPin } from "lucide-react";
-import { FaFacebook, FaInstagram } from "react-icons/fa";
+import {
+  FaFacebook,
+  FaInstagram,
+  FaTelegram,
+  FaTiktok,
+  FaViber,
+  FaWhatsapp,
+} from "react-icons/fa";
 
 export default function Footer() {
   const scrollToSection = (id: string) => {
@@ -67,8 +74,10 @@ export default function Footer() {
           </p>
           <div className="mt-6 flex gap-4">
             {[
-              { icon: <FaInstagram size={20} />, href: "#" },
-              { icon: <FaFacebook size={20} />, href: "#" },
+              { icon: <FaTelegram size={20} />, href: "#" },
+              { icon: <FaViber size={20} />, href: "#" },
+              { icon: <FaWhatsapp size={20} />, href: "#" },
+              { icon: <FaTiktok size={20} />, href: "#" },
             ].map((social, idx) => (
               <motion.a
                 key={idx}
@@ -144,8 +153,8 @@ export default function Footer() {
               className="flex items-center gap-3"
             >
               <Phone size={16} className="text-accent" />
-              <a href="tel:+380XXXXXXXXX" className="hover:text-accent">
-                +38 (0XX) XXX XX XX
+              <a href="tel:+380634408088" className="hover:text-accent">
+                +38 (063) 440 80 88
               </a>
             </motion.li>
             <motion.li
@@ -154,10 +163,10 @@ export default function Footer() {
             >
               <Mail size={16} className="text-accent" />
               <a
-                href="mailto:hello@westhelpers.ua"
+                href="mailto:westhelper.service@gmail.com"
                 className="hover:text-accent"
               >
-                hello@westhelpers.ua
+                westhelper.service@gmail.com
               </a>
             </motion.li>
             <li className="flex items-center gap-3">
